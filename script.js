@@ -9,7 +9,6 @@ const frequency = [
     466.16, 554.37, 622.25, 739.99, 830.61, 932.33, 1108.73
 ];
 
-let gain = 0.5;
 const activeOscillators = {};
 
 // Complete key mapping including black keys
@@ -26,6 +25,14 @@ const keyMap = {
 function getVisualKey(key) {
     return document.querySelector(`[data-key="${key}"]`);
 }
+
+let volumeSlider = document.getElementById('volume-slider');
+let currentVolume = 1; 
+
+volumeSlider.addEventListener("change", function(e) {
+    currentVolume = e.currentTarget.value / 100;
+    console.log(e.currentTarget.value);
+})
 
 document.addEventListener("keydown", function(e){
     if (audioContext.state === 'suspended') {
@@ -50,7 +57,7 @@ document.addEventListener("keydown", function(e){
         oscillator.frequency.value = frequency[keyMap[key]];
         
         const gainNode = audioContext.createGain();
-        gainNode.gain.value = gain;
+        gainNode.gain.value = currentVolume;
         
         oscillator.connect(gainNode);
         gainNode.connect(audioContext.destination);
