@@ -1,0 +1,169 @@
+/* CSS Variables */
+:root {
+    --main-bg-color: #E8F0F8;
+    --key-black-primary: #1C1C1C;
+    --key-black-secondary:#3e3e3e;
+    --key-white: #FFFFFF;
+    --key-dividers: #B9B9B9;
+    --blue-primary: #F4F4F4;
+    --active-highlight: #4E8DF4;
+    --slider-inactive: #D1D5DB;
+    --slider-filled: #2563EB;
+    --border-radius-medium: 16px;
+    --border-radius-small: 8px;
+}
+
+/* Reset and Base Styles */
+* {
+    font-family: sans-serif;
+    font-weight: 300;
+    background-color: none;
+    margin: 0;
+    padding: 0;
+}
+
+/* Main Layout */
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background-color: var(--main-bg-color);
+}
+
+/* Typography */
+h1 {
+    color: var(--key-dividers);
+}
+
+.label {
+    margin-bottom: 2rem;
+}
+
+/* Piano Container */
+.piano-container {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--key-black-primary);
+    height: 600px;
+    width: 1200px;
+    margin: 4rem;
+    padding: 0 4rem 4rem;
+    border-radius: var(--border-radius-medium);
+}
+
+/* Piano Header */
+.piano-header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    background-color: var(--key-black-primary);
+    height: 40%;
+    width: 100%;
+}
+
+/* Keys Container */
+.keys-container {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: 100%;
+}
+
+/* Key Groups */
+.keys-group-small {
+    display: flex;
+    flex-direction: row;
+    width: 30%;
+    height: 100%;
+    border-radius: var(--border-radius-medium);
+    overflow: hidden;
+    position: relative;
+}
+
+.keys-group-large {
+    display: flex;
+    flex-direction: row;
+    width: 40%;
+    height: 100%;
+    border-radius: var(--border-radius-medium);
+    overflow: hidden;
+    position: relative;
+}
+
+/* Individual Keys */
+.key-white {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    background-color: var(--key-white);
+    width: 100%;
+    height: 100%;
+    border: 2px solid black;
+    box-shadow: inset 0 -5px 5px -5px black;
+}
+
+/* Key press animations */
+.key-white:active,
+.key-white.pressed {
+    background-color: #E0E0E0 !important; /* Light gray when pressed */
+    transform: translateY(2px) !important; /* Slight downward movement */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.2) !important; /* Inset shadow */
+    transition: all 0.1s ease;
+}
+
+/* Black Keys - Corrected positioning to center on borders */
+.key-black {
+    display: flex;
+    flex-direction: column;
+    justify-content: end;
+    align-items: center;
+    background-image: linear-gradient(to bottom, var(--key-black-secondary), var(--key-black-primary));
+    width: 80px;
+    height: 60%;
+    border-radius: 0 0 8px 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    position: absolute;
+    z-index: 10;
+    top: 0;
+}
+
+.key-black:active,
+.key-black.pressed {
+    background-color: #000000 !important; /* Darker black when pressed */
+    transform: translateY(2px) !important; /* Slight downward movement */
+    box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.4) !important; /* Inset shadow */
+    transition: all 0.1s ease;
+}
+
+/* Smooth transitions for all keys */
+.key-white,
+.key-black {
+    transition: all 0.1s ease;
+}
+
+/* Position black keys in small groups (3 white keys = 33.33% each) */
+.keys-group-small .key-black:nth-child(2) {
+    left: calc(33.33% - 40px); /* 33.33% - half of 80px */
+}
+
+.keys-group-small .key-black:nth-child(4) {
+    left: calc(66.67% - 40px); /* 66.67% - half of 80px */
+}
+
+/* Position black keys in large groups (4 white keys = 25% each) */
+.keys-group-large .key-black:nth-child(2) {
+    left: calc(25% - 40px); /* Between F and G */
+}
+
+.keys-group-large .key-black:nth-child(4) {
+    left: calc(50% - 40px); /* Between G and H */
+}
+
+.keys-group-large .key-black:nth-child(6) {
+    left: calc(75% - 40px); /* Between H and J */
+}
