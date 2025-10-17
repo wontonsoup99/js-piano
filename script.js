@@ -11,7 +11,6 @@ const frequency = [
 
 const activeOscillators = {};
 
-// Complete key mapping including black keys
 const keyMap = {
     // White keys
     'a': 0, 's': 1, 'd': 2, 'f': 3, 'g': 4,
@@ -21,17 +20,28 @@ const keyMap = {
     'u': 14, 'o': 15, 'p': 16
 };
 
-// Helper function to get visual key element using data-key attribute
 function getVisualKey(key) {
     return document.querySelector(`[data-key="${key}"]`);
 }
 
-let volumeSlider = document.getElementById('volume-slider');
+
+const volumeSlider = document.getElementById('volume-slider');
 let currentVolume = 1; 
+const showKeysButton = document.getElementById('show-keys');
+let showKeys = true;
+const keyLabels = document.querySelectorAll('.label');
+
 
 volumeSlider.addEventListener("change", function(e) {
     currentVolume = e.currentTarget.value / 100;
-    console.log(e.currentTarget.value);
+})
+
+showKeysButton.addEventListener("click", function(e){
+    showKeys = !showKeys;
+    
+    keyLabels.forEach(label => {
+        label.classList.toggle('hidden', !showKeys);
+    });
 })
 
 document.addEventListener("keydown", function(e){
@@ -42,16 +52,13 @@ document.addEventListener("keydown", function(e){
     const key = e.key.toLowerCase();
     
     if(keyMap[key] !== undefined && !activeOscillators[key]){
-        // Visual feedback
+
         const visualKey = getVisualKey(key);
         if(visualKey) {
-            console.log("Pressing key:", key);
             visualKey.classList.add('pressed');
         } else {
-            console.log("Could not find visual key for:", key);
         }
         
-        // Audio
         const oscillator = audioContext.createOscillator();
         oscillator.type = 'sine';
         oscillator.frequency.value = frequency[keyMap[key]];
@@ -75,17 +82,16 @@ document.addEventListener("keyup", function(e){
     const key = e.key.toLowerCase();
     
     if(activeOscillators[key]){
-        // Remove visual feedback
+
         const visualKey = getVisualKey(key);
         if(visualKey) {
-            console.log("Releasing key:", key);
             visualKey.classList.remove('pressed');
         }
         
-        // Stop audio
         activeOscillators[key].oscillator.stop();
         activeOscillators[key].oscillator.disconnect();
         activeOscillators[key].gainNode.disconnect();
         delete activeOscillators[key];
     }
 });
+

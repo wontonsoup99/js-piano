@@ -33,6 +33,34 @@ main {
 
 h1 {
     color: var(--key-dividers);
+    user-select: none;
+}
+
+label {
+    color: var(--key-dividers);
+    font-size: 1.5rem;
+    user-select: none;
+}
+
+#volume-slider {
+    accent-color: var(--slider-inactive);
+
+}
+
+#show-keys {
+    font-size: 1.5rem;
+    color: var(--key-dividers);
+    background-color: transparent;
+    border: none;
+    user-select: none;
+}
+
+#show-keys:hover {
+    cursor: pointer;
+}
+
+.volume-container {
+   display: block;
 }
 
 .label {
@@ -59,6 +87,16 @@ h1 {
     background-color: var(--key-black-primary);
     height: 40%;
     width: 100%;
+}
+
+.piano-header h1:first-child {
+    flex: 1;
+    text-align: left;
+}
+
+.piano-header button {
+    flex: 1;
+    text-align: right;
 }
 
 .keys-container {
@@ -155,4 +193,8 @@ h1 {
 
 .keys-group-large .key-black:nth-child(6) {
     left: calc(75% - 40px);
+}
+
+.hidden {
+    display: none !important;
 }
